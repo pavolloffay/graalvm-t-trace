@@ -1,14 +1,16 @@
 # GraalVM T-Trace examples
 
+This repository contain examples of GraalVM T-Trace instrumentation tool with Jaeger and OpenTracing.
+
 T-Trace [documentation](https://github.com/oracle/graal/blob/master/tools/docs/T-Trace-Manual.md) and 
 [javadoc](https://www.graalvm.org/tools/javadoc/com/oracle/truffle/tools/agentscript/AgentScript.html#VERSION).
 
-T-Trace documentation: https://github.com/oracle/graal/blob/master/tools/docs/T-Trace-Tracing.md.
 The code has been tested with https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.0.0.
 
 ## NodeJS and Jaeger
 
 This sections hows how T-Trace can be used with Jaeger and OpenTracing to instrument NodeJS application.
+Read the [documentation](https://github.com/oracle/graal/blob/master/tools/docs/T-Trace-Tracing.md)
 
 Run Jaeger server:
 ```
