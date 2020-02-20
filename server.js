@@ -1,16 +1,17 @@
-const http = require('http');
+function jaegerAvailable(jaeger) {
+  console.log("Providing Jaeger object to the agent");
+}
+jaegerAvailable(require("jaeger-client"));
 
-const hostname = '127.0.0.1';
 const port = 3000;
 
-function handleRequest(req, res) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
-}
-
-const server = http.createServer(handleRequest);
-
-server.listen(port, hostname, () => {
-  print(`Server running at http://${hostname}:${port}/`);
+const http = require("http");
+const srv = http.createServer((req, res) => {
+  console.log(`server: obtained request ${res.id}`);
+  setTimeout(() => {
+    res.write(`OK# ${res.id}`);
+    console.log(`server: replied to request ${res.id}`);
+    res.end();
+  }, 5);
 });
+srv.listen(port);
