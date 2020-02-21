@@ -28,7 +28,7 @@ let initializeAgent = function(tracer) {
                 res.span.setTag("error", "true");
             }
             res.span.finish();
-            console.log(`agent: finished #${res.id} request`);
+            console.log(`agent: finished #${res.id} request\n`);
         } else {
             // OK, caused for example by Tracer itself connecting to Jaeger server
         }
