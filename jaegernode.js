@@ -41,13 +41,12 @@ let initializeAgent = function(tracer) {
 };
 
 
-let initializeJaeger = function (ctx, frame) {
-    agent.off('enter', initializeJaeger);
+let initializeJaeger = function (require) {
+    let http = require("http");
+    console.log(`${typeof http.createServer} http.createServer is available to the agent`);
 
-    let jaeger = frame.jaeger;
-
-    var initTracer = jaeger.initTracer;
-    console.log('agent: Jaeger tracer obtained');
+    var initTracer = require('jaeger-client').initTracer;
+    console.log('server: Jaeger tracer obtained');
 
     // See schema https://github.com/jaegertracing/jaeger-client-node/blob/master/src/configuration.js#L37
     var config = {
@@ -79,7 +78,11 @@ let initializeJaeger = function (ctx, frame) {
     initializeAgent(tracer);
 };
 
-agent.on('return', initializeJaeger, {
-    roots: true,
-    rootNameFilter: name => name === 'jaegerAvailable'
-});
+let waitForRequire = function (event) {
+    if (typeof process === 'object' && process.mainModule && process.mainModule.require) {
+        agent.off('source', waitForRequire);
+        initializeJaeger(process.mainModule.require.bind(process.mainModule));
+    }
+};
+
+agent.on('source', waitForRequire, { roots: true });

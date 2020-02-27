@@ -1,8 +1,3 @@
-function jaegerAvailable(jaeger) {
-  console.log("Providing Jaeger object to the agent");
-}
-jaegerAvailable(require("jaeger-client"));
-
 const port = 3000;
 
 const http = require("http");
